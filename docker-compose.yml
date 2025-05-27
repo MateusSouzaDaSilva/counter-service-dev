@@ -6,14 +6,26 @@
 # This service is built from the Dockerfile in the current directory.
 # You can add other services your application may depend on here, such as a
 # database or a cache. For examples, see the Awesome Compose repository:
-# https://github.com/docker/awesome-compose
-services:
-  server:
-    build:
-      context: .
-    ports:
-      - 8000:8000
+# # https://github.com/docker/awesome-compose
+# services:
+#   server:
+#     build:
+#       context: .
+#     ports:
+#       - 8000:8000
 
+version: '2.4'  # The last version of Docker Compose file format that directly supports mem_limit and cpus
+services:
+  counter-service:
+    container_name: counter-service-exercise
+    image: 833779331988.dkr.ecr.us-east-2.amazonaws.com/counter-service-exercise:latest
+    volumes:
+      - ./data:/data
+    ports:
+      - "80:8080"
+    restart: always
+    mem_limit: 256M
+    cpus: 0.5
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
 # start the database before your application. The `db-data` volume persists the
