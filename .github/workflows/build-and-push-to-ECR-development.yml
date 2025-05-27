@@ -149,7 +149,6 @@ jobs:
         newgrp docker
     
     - name: Configure Docker on EC2
-      run: ssh -i ec2.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "sudo usermod -aG docker ubuntu"
     
     - name: Deploy to EC2
       env:
@@ -163,6 +162,8 @@ jobs:
         # Save PEM key to file and set permissions
         echo "$EC2_PEM_KEY" > ec2.pem
         chmod 400 ec2.pem
+        ssh -i ec2.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "sudo usermod -aG docker ubuntu"
+
 
         # SSH, SCP commands
         SSH_COMMAND="ssh -i ec2.pem -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST"
