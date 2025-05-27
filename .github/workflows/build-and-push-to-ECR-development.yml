@@ -142,7 +142,12 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         # Push the latest tag
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-
+    
+    - name: Add runner to docker group
+      run: |
+        sudo usermod -aG docker $USER
+        newgrp docker
+    
     - name: Deploy to EC2
       env:
         EC2_PEM_KEY: ${{ secrets.EC2_PEM_KEY }}
