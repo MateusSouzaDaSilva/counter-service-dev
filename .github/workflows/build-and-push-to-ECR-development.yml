@@ -161,7 +161,7 @@ jobs:
         # Save PEM key to file and set permissions
         echo "$EC2_PEM_KEY" > ec2.pem
         chmod 400 ec2.pem
-        ssh -i ec2.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "sudo usermod -aG docker ubuntu"
+        # ssh -i ec2.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "sudo usermod -aG docker ubuntu"
 
 
         # SSH, SCP commands
