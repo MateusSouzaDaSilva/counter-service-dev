@@ -143,12 +143,11 @@ jobs:
         # Push the latest tag
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
     
-    - name: Add runner to docker group
-      run: |
-        sudo usermod -aG docker $USER
-        newgrp docker
+    # - name: Add runner to docker group
+    #   run: |
+    #     sudo usermod -aG docker $USER
+    #     newgrp docker
     
-    - name: Configure Docker on EC2
     
     - name: Deploy to EC2
       env:
