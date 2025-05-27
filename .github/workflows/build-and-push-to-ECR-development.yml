@@ -148,6 +148,9 @@ jobs:
         sudo usermod -aG docker $USER
         newgrp docker
     
+    - name: Configure Docker on EC2
+      run: ssh -i ec2.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "sudo usermod -aG docker ubuntu"
+    
     - name: Deploy to EC2
       env:
         EC2_PEM_KEY: ${{ secrets.EC2_PEM_KEY }}
