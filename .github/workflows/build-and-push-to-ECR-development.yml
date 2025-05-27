@@ -105,7 +105,7 @@ jobs:
         ECR_REPOSITORY: ${{ env.REPO_NAME }}
         IMAGE_TAG: ${{ steps.next_version.outputs.tag }}
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        sudo docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         echo "IMAGE_NAME=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
 
 ###########################################################
@@ -137,11 +137,11 @@ jobs:
         IMAGE_TAG: ${{ steps.next_version.outputs.tag }}
       run: |
         # Tag the image as latest
-        docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        sudo docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
         # Push the specific version tag
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        sudo docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         # Push the latest tag
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        sudo docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
     
     - name: Add runner to docker group
       run: |
